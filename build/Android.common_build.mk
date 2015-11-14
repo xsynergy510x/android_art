@@ -29,9 +29,9 @@ include art/build/Android.common.mk
 # Beware that tests may use the non-debug build for performance, notable 055-enum-performance
 #
 ART_BUILD_TARGET_NDEBUG ?= true
-ART_BUILD_TARGET_DEBUG ?= true
+ART_BUILD_TARGET_DEBUG ?= false
 ART_BUILD_HOST_NDEBUG ?= true
-ART_BUILD_HOST_DEBUG ?= true
+ART_BUILD_HOST_DEBUG ?= false
 
 ifeq ($(ART_BUILD_TARGET_NDEBUG),false)
 $(info Disabling ART_BUILD_TARGET_NDEBUG)
@@ -116,18 +116,14 @@ endif
 
 # Host.
 ART_HOST_CLANG := false
-ifneq ($(WITHOUT_HOST_CLANG),true)
-  # By default, host builds use clang for better warnings.
-  ART_HOST_CLANG := true
-endif
 
 # Clang on the target. Target builds use GCC by default.
-ART_TARGET_CLANG :=
-ART_TARGET_CLANG_arm :=
-ART_TARGET_CLANG_arm64 :=
-ART_TARGET_CLANG_mips :=
-ART_TARGET_CLANG_x86 :=
-ART_TARGET_CLANG_x86_64 :=
+ART_TARGET_CLANG := false
+ART_TARGET_CLANG_arm := false
+ART_TARGET_CLANG_arm64 := false
+ART_TARGET_CLANG_mips := false
+ART_TARGET_CLANG_x86 := false
+ART_TARGET_CLANG_x86_64 := false
 
 define set-target-local-clang-vars
     LOCAL_CLANG := $(ART_TARGET_CLANG)
@@ -209,8 +205,7 @@ ART_TARGET_CLANG_CFLAGS_arm64 += \
   -fno-vectorize
 
 art_debug_cflags := \
-  -O1 \
-  -DDYNAMIC_ANNOTATIONS_ENABLED=1 \
+  -O3 \
   -DNDEBUG
 
 ifndef LIBART_IMG_HOST_BASE_ADDRESS
