@@ -52,6 +52,11 @@ endif
 #
 ART_JIT := true
 
+#
+# Enable ART Optimizing compiler
+#
+ART_USE_OPTIMIZING_COMPILER := true
+
 
 #
 # Used to change the default GC. Valid values are CMS, SS, GSS. The default is CMS.
@@ -198,7 +203,6 @@ art_cflags := \
 #  -Wmissing-declarations \
 
 
-
 ifdef ART_IMT_SIZE
   art_cflags += -DIMT_SIZE=$(ART_IMT_SIZE)
 else
@@ -226,12 +230,8 @@ endif
 art_non_debug_cflags := \
   -O3
 
-# Cflags for debug ART and ART tools.
-art_debug_cflags := \
-  -O2 \
-  -DDYNAMIC_ANNOTATIONS_ENABLED=1 \
-  -DVIXL_DEBUG \
-  -UNDEBUG
+# Force non-debug cflags for ART and ART tools.
+art_debug_cflags := $(art_non_debug_cflags)
 
 art_host_non_debug_cflags := $(art_non_debug_cflags)
 art_target_non_debug_cflags := $(art_non_debug_cflags)
