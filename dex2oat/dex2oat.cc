@@ -1181,11 +1181,8 @@ class Dex2Oat FINAL {
       runtime_options.push_back(std::make_pair("-Xno-dex-file-fallback", nullptr));
     }
 
-    {
-      TimingLogger::ScopedTiming t_runtime("Create runtime", timings_);
-      if (!CreateRuntime(runtime_options)) {
-        return false;
-      }
+    if (!CreateRuntime(runtime_options)) {
+      return false;
     }
 
     // Runtime::Create acquired the mutator_lock_ that is normally given away when we
@@ -1259,7 +1256,6 @@ class Dex2Oat FINAL {
     if (boot_image_option_.empty()) {
       dex_files_ = Runtime::Current()->GetClassLinker()->GetBootClassPath();
     } else {
-      TimingLogger::ScopedTiming t_dex("Opening dex files", timings_);
       if (dex_filenames_.empty()) {
         ATRACE_BEGIN("Opening zip archive from file descriptor");
         std::string error_msg;
