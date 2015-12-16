@@ -2375,7 +2375,8 @@ class ReferenceMapVisitor : public StackVisitor {
         // Can't be null or how would we compile its instructions?
         DCHECK(code_item != nullptr) << PrettyMethod(m);
         NativePcOffsetToReferenceMap map(native_gc_map);
-        size_t num_regs = map.RegWidth() * 8;
+        size_t num_regs = std::min(map.RegWidth() * 8,
+                                   static_cast<size_t>(code_item->registers_size_));
         if (num_regs > 0) {
           Runtime* runtime = Runtime::Current();
           const void* entry_point = runtime->GetInstrumentation()->GetQuickCodeFor(m, sizeof(void*));
