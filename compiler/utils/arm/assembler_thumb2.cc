@@ -654,7 +654,6 @@ void Thumb2Assembler::vcmpdz(DRegister dd, Condition cond) {
 }
 
 void Thumb2Assembler::b(Label* label, Condition cond) {
-  DCHECK_EQ(next_condition_, AL);
   EmitBranch(cond, label, false, false);
 }
 
