@@ -17,6 +17,13 @@
 #ifndef ART_RUNTIME_OBJECT_CALLBACKS_H_
 #define ART_RUNTIME_OBJECT_CALLBACKS_H_
 
+// For ostream.
+#include <ostream>
+// For uint32_t.
+#include <stdint.h>
+// For size_t.
+#include <stdlib.h>
+
 #include "base/macros.h"
 
 namespace art {

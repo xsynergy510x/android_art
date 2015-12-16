@@ -16,9 +16,7 @@
 
 #include "large_object_space.h"
 
-#include <valgrind.h>
 #include <memory>
-#include <memcheck/memcheck.h>
 
 #include "gc/accounting/heap_bitmap-inl.h"
 #include "gc/accounting/space_bitmap-inl.h"
